@@ -6,6 +6,7 @@
     <title>The Lightbridge Journey: Plano Interactive Tour</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght=0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -79,11 +80,16 @@
                     <button class="nav-scroller-btn" id="nextRoomBtn" onclick="navigateRoomStep(1)">Next ▶</button>
                 </div>
 
-                <div class="viewport-visuals" id="canvasBackgroundView">
-                    <div class="asset-tag" id="assetTagDisplay">Default Asset Active</div>
-                    <div class="childhood-photo-sphere" id="childPicSphere">
-                        <img id="childProfilePic" src="" alt="Age Aligned Child">
+                <div class="viewport-media-stack" id="viewportRightPanel">
+                    <div class="viewport-visuals" id="canvasBackgroundView">
+                        <div class="asset-tag" id="assetTagDisplay">Default Asset Active</div>
+                        <div class="childhood-photo-sphere" id="childPicSphere">
+                            <img id="childProfilePic" src="" alt="Age Aligned Child">
+                        </div>
                     </div>
+                    
+                    <div class="viewport-video-container" id="videoLayoutFrame">
+                        </div>
                 </div>
             </section>
         </main>
@@ -130,7 +136,16 @@
                 <input type="url" class="text-input-style" id="configTourUrl" value="https://lightbridgeacademy.com/schedule-a-tour" oninput="updateTourHyperlinks()">
             </div>
 
-            <h3 style="font-size:0.95rem; text-transform:uppercase; color:#475569; margin-bottom:15px; letter-spacing:0.5px;">Upload Local Background Ecosystem Files:</h3>
+            <h3 style="font-size:0.95rem; text-transform:uppercase; color:var(--lba-blue); margin-bottom:15px; letter-spacing:0.5px;">Classroom Tour Video URL Links:</h3>
+            <div class="config-form-group"><label>1. Young Infants Video Embed URL</label><input type="text" class="text-input-style" id="vid-younginfant" value="https://www.youtube.com/embed/dQw4w9WgXcQ" oninput="syncAdminVideoFields()"></div>
+            <div class="config-form-group"><label>2. Mobile Infants Video Embed URL</label><input type="text" class="text-input-style" id="vid-mobileinfant" value="https://www.youtube.com/embed/dQw4w9WgXcQ" oninput="syncAdminVideoFields()"></div>
+            <div class="config-form-group"><label>3. Purple Cats Video Embed URL</label><input type="text" class="text-input-style" id="vid-purple" value="" oninput="syncAdminVideoFields()"></div>
+            <div class="config-form-group"><label>4. Orange Giraffe Video Embed URL</label><input type="text" class="text-input-style" id="vid-orange" value="" oninput="syncAdminVideoFields()"></div>
+            <div class="config-form-group"><label>5. Multi-Purpose Video Embed URL</label><input type="text" class="text-input-style" id="vid-multipurpose" value="" oninput="syncAdminVideoFields()"></div>
+            <div class="config-form-group"><label>6. Outdoor Playground Video Embed URL</label><input type="text" class="text-input-style" id="vid-playground" value="" oninput="syncAdminVideoFields()"></div>
+            <div class="config-form-group"><label>7. Brown Bears Video Embed URL</label><input type="text" class="text-input-style" id="vid-bears" value="" oninput="syncAdminVideoFields()"></div>
+
+            <h3 style="font-size:0.95rem; text-transform:uppercase; color:#475569; margin-top:25px; margin-bottom:15px; letter-spacing:0.5px;">Upload Local Background Ecosystem Files:</h3>
             <div class="config-form-group"><label>1. Young Infants Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'younginfant')"></div>
             <div class="config-form-group"><label>2. Mobile Infants Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'mobileinfant')"></div>
             <div class="config-form-group"><label>3. Purple Cats Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'purple')"></div>
@@ -159,12 +174,12 @@
     <script>
         const roomSequenceKeys = ['younginfant', 'mobileinfant', 'purple', 'orange', 'multipurpose', 'playground', 'bears'];
         
-        // MULTI-QUESTION CONFIGURATION POOLS: Easily add or modify question banks per room
         const tourDatabase = {
             younginfant: { 
                 title: "Young Infant Suites", 
                 age: "6 Weeks to 12 Months", 
                 desc: "Welcome to our Young Infant spaces. Our layout focuses on nurturing care, individual development patterns, and pristine sanitation standards.", 
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", 
                 questions: [
                     {
                         prompt: "Your infant is working on early head-neck controls. To maximize milestone tracking while maintaining clean spaces, what activity does our Seedlings curriculum prioritize?",
@@ -188,6 +203,7 @@
                 title: "Mobile Infant Suites", 
                 age: "12 to 18 Months", 
                 desc: "Our Mobile Infant environment safely encourages movement, exploration, muscle coordination, and sensory learning loops.", 
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
                 questions: [
                     {
                         prompt: "A mobile infant is beginning to pull themselves up on low furniture tracks. What is the proper curriculum action?",
@@ -211,6 +227,7 @@
                 title: "The Purple Cats Room", 
                 age: "18 to 24 Months", 
                 desc: "Toddlers in our Purple Cats space are working on emotional vocabulary expression, cooperative sharing, and early language development.", 
+                videoUrl: "",
                 questions: [
                     {
                         prompt: "During our Seedlings Language circle presentation, how do we reinforce communication skills?",
@@ -234,6 +251,7 @@
                 title: "The Orange Giraffe Room", 
                 age: "2 to 3 Years", 
                 desc: "Two-year-olds focus on cognitive tracking skills, balance puzzles, and independence routines such as potty training.", 
+                videoUrl: "",
                 questions: [
                     {
                         prompt: "How does our daily classroom pattern encourage toddler success during routine potty training milestones?",
@@ -250,6 +268,7 @@
                 title: "The Multi-Purpose Room", 
                 age: "All Age Tiers Enrichment", 
                 desc: "An internal learning ecosystem hosting advanced specialized enrichment programs, rainy-day gross motor activities, and Seedlings structural music courses.", 
+                videoUrl: "",
                 questions: [
                     {
                         prompt: "Weather forces all activities indoors. How does the Multi-Purpose space preserve your child's daily physical development loops?",
@@ -266,6 +285,7 @@
                 title: "The Outdoor Playground", 
                 age: "Active Gross Motor Focus", 
                 desc: "Secure, weather-protected premium outdoor surfacing tailored specifically for safe running, physical coordination games, and group interaction skills.", 
+                videoUrl: "",
                 questions: [
                     {
                         prompt: "During outdoor tracking activities, how do our playground zones protect learning safely?",
@@ -282,6 +302,7 @@
                 title: "The Brown Bears Room", 
                 age: "4 to 5 Years", 
                 desc: "Our Pre-K graduation engine. This space sharpens advanced phonics processing, foundational math, and social-emotional confidence structures.", 
+                videoUrl: "",
                 questions: [
                     {
                         prompt: "To verify total Kindergarten readiness tracking metrics via the Journey app, what parameter is analyzed?",
@@ -331,6 +352,14 @@
             document.getElementById('lblHeaderEmail').innerText = email ? `✉️ ${email}` : '';
         }
 
+        function syncAdminVideoFields() {
+            roomSequenceKeys.forEach(key => {
+                const adminInputVal = document.getElementById(`vid-${key}`).value;
+                tourDatabase[key].videoUrl = adminInputVal;
+            });
+            renderVideoPlayerLayer(activeRoomKey);
+        }
+
         function loadTourStop(roomKey) {
             if (!unlockedRooms[roomKey]) {
                 alert("🔒 This zone is locked! Solve the previous classroom milestone challenge first to unlock directory mapping tracks.");
@@ -347,14 +376,15 @@
             document.getElementById('interactiveContentWrapper').style.display = "block";
             document.getElementById('childPicSphere').style.display = "block";
             document.getElementById('viewportFooterNavigation').style.display = "flex";
+            document.getElementById('viewportRightPanel').style.display = "flex";
 
             document.querySelectorAll('.map-room-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`btn-${roomKey}`).classList.add('active');
 
             renderBackgroundLayer(roomKey);
+            renderVideoPlayerLayer(roomKey);
             updateFooterNavButtons();
 
-            // RANDOM SELECTION PATTERN: Selects a random question block from the active room array
             const randomQuestionIdx = Math.floor(Math.random() * data.questions.length);
             const activeQuestion = data.questions[randomQuestionIdx];
 
@@ -372,6 +402,22 @@
             });
 
             updateTourHyperlinks();
+        }
+
+        function renderVideoPlayerLayer(roomKey) {
+            const videoFrame = document.getElementById('videoLayoutFrame');
+            const currentVideoUrl = tourDatabase[roomKey].videoUrl;
+
+            if (currentVideoUrl && currentVideoUrl.trim() !== "") {
+                videoFrame.innerHTML = `
+                    <iframe class="video-player-iframe" 
+                            src="${currentVideoUrl}" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>`;
+            } else {
+                videoFrame.innerHTML = `<div class="video-fallback-message">🎥 No interactive virtual tour video linked for this suite.</div>`;
+            }
         }
 
         function navigateRoomStep(direction) {
@@ -401,12 +447,13 @@
                 currentScore += choice.points;
                 document.getElementById('scoreDisplay').innerText = `Seedlings Points: ${currentScore}`;
                 
-                // FIXED: Modifies container styles directly to corporate green color values
                 const mapButton = document.getElementById(`btn-${roomKey}`);
                 mapButton.classList.add('completed');
                 
                 const badge = document.getElementById(`status-${roomKey}`);
                 badge.innerText = "Completed ✓";
+                badge.style.background = "var(--lba-green)";
+                badge.style.color = "var(--lba-white)";
 
                 unlockNextInSequence(roomKey);
             } else {
@@ -437,6 +484,7 @@
             document.getElementById('roomDescription').style.display = "none";
             document.getElementById('childPicSphere').style.display = "none";
             document.getElementById('viewportFooterNavigation').style.display = "none";
+            document.getElementById('viewportRightPanel').style.display = "none";
 
             const interactiveContainer = document.getElementById('interactiveContentWrapper');
             const targetUrl = document.getElementById('configTourUrl').value;
