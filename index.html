@@ -36,13 +36,14 @@
             min-height: 100vh;
         }
 
+        /* Top Summary Navigation Bar */
         .tour-header {
             max-width: 1300px;
             width: 100%;
             margin: 0 auto 20px auto;
             background: var(--lba-blue);
             color: var(--lba-white);
-            padding: 20px;
+            padding: 15px 25px;
             border-radius: 12px;
             display: flex;
             justify-content: space-between;
@@ -51,9 +52,15 @@
         }
 
         .tour-header h1 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: -0.5px;
+        }
+
+        .header-actions-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .score-box {
@@ -61,7 +68,7 @@
             padding: 8px 16px;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border: 1px solid var(--lba-white);
         }
 
@@ -71,12 +78,12 @@
             width: 100%;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 350px 1fr;
+            grid-template-columns: 320px 1fr;
             gap: 20px;
             flex: 1;
         }
 
-        /* LEFT SIDE: Tour Map & Admin Configurations */
+        /* LEFT SIDE: Tour Map Sidebar */
         .tour-controls-sidebar {
             display: flex;
             flex-direction: column;
@@ -101,7 +108,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Tour Directory Map Navigation */
         .map-directory {
             display: flex;
             flex-direction: column;
@@ -117,7 +123,7 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -136,7 +142,7 @@
         }
 
         .room-status-badge {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             padding: 2px 8px;
             border-radius: 10px;
             background: #cbd5e1;
@@ -154,29 +160,7 @@
             color: var(--lba-white);
         }
 
-        /* Configurator Styling */
-        .config-form-group {
-            margin-bottom: 12px;
-        }
-        .config-form-group label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .file-input-style, .text-input-style {
-            width: 100%;
-            font-size: 0.8rem;
-            padding: 6px;
-            border: 1px solid var(--border-gray);
-            border-radius: 4px;
-            background: var(--bg-light);
-        }
-        .file-input-style {
-            border: 1px dashed var(--lba-blue);
-        }
-
-        /* RIGHT SIDE: Immersive Presentation Viewport */
+        /* RIGHT SIDE: Viewport Panels */
         .tour-viewport {
             background: var(--lba-white);
             border-radius: 16px;
@@ -184,8 +168,9 @@
             overflow: hidden;
             display: grid;
             grid-template-columns: 1.2fr 1fr;
-            min-height: 680px;
+            min-height: 650px;
             border: 1px solid var(--border-gray);
+            position: relative;
         }
 
         /* Classroom Narrative Info & Content Canvas */
@@ -194,6 +179,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            padding-bottom: 90px; /* Space for the bottom footer buttons */
         }
 
         .classroom-title {
@@ -204,7 +190,7 @@
 
         .age-sub-rule {
             font-family: 'Baskerville', 'Georgia', serif;
-            font-style: italic; /* Core brand aesthetic */
+            font-style: italic;
             color: var(--lba-red);
             font-size: 1.15rem;
             margin-bottom: 20px;
@@ -224,7 +210,6 @@
             border-left: 5px solid var(--lba-blue);
             padding: 20px;
             border-radius: 0 8px 8px 0;
-            margin-bottom: 20px;
         }
 
         .gameplay-box h4 {
@@ -264,45 +249,45 @@
             background: #f2fbeb;
         }
 
-        /* Global Brand Call to Action Buttons Rules */
-        .cta-tour-link {
-            display: inline-flex;
+        /* Bottom Fixed Navigation Bar Rule within Left Content Window */
+        .viewport-footer-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 54.5%; /* Aligns with the interaction left column split layout width */
+            background: #f8fafc;
+            border-top: 1px solid var(--border-gray);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            background: var(--lba-red);
-            color: var(--lba-white);
-            text-decoration: none;
+            z-index: 10;
+        }
+
+        .nav-scroller-btn {
+            background: var(--lba-white);
+            border: 1px solid var(--border-gray);
+            color: #475569;
             font-weight: 700;
-            padding: 14px 24px;
-            border-radius: 8px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            transition: background 0.2s ease, transform 0.1s ease;
-            box-shadow: 0 4px 12px rgba(238, 49, 36, 0.2);
-            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
             cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .cta-tour-link:hover {
-            background: #cc2417;
-            transform: translateY(-1px);
+        .nav-scroller-btn:hover:not(:disabled) {
+            border-color: var(--lba-blue);
+            color: var(--lba-blue);
+            background: #f0f7fc;
         }
 
-        .cta-tour-link:active {
-            transform: translateY(1px);
-        }
-
-        /* Graduation Wrapper Custom View Card */
-        .graduation-view {
-            text-align: center;
-            padding: 40px 20px;
-        }
-        
-        .graduation-view h3 {
-            color: var(--lba-green);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+        .nav-scroller-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
 
         /* Classroom Image Panel Render Viewport */
@@ -324,14 +309,12 @@
             color: var(--lba-white);
             padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.7------rem;
             font-size: 0.7rem;
             font-weight: 700;
             align-self: flex-start;
             letter-spacing: 0.5px;
         }
 
-        /* Circular Photo Target Overlay Frame */
         .childhood-photo-sphere {
             width: 140px;
             height: 140px;
@@ -349,7 +332,84 @@
             object-fit: cover;
         }
 
-        /* Footer Branding Deck */
+        /* Top Bar Call to Action Button */
+        .cta-header-link {
+            background: var(--lba-red);
+            color: var(--lba-white);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 8px rgba(238, 49, 36, 0.2);
+            transition: background 0.2s ease;
+        }
+
+        .cta-header-link:hover {
+            background: #cc2417;
+        }
+
+        /* ADMIN PAGE SPECIFIC VIEWS */
+        .admin-view-container {
+            max-width: 600px;
+            margin: 40px auto;
+            display: none; /* Controlled by toggle view engine */
+        }
+
+        .admin-login-box {
+            max-width: 400px;
+            margin: 80px auto;
+            text-align: center;
+        }
+
+        .config-form-group {
+            margin-bottom: 15px;
+        }
+        .config-form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-align: left;
+        }
+        .file-input-style, .text-input-style {
+            width: 100%;
+            font-size: 0.85rem;
+            padding: 8px;
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        .file-input-style {
+            border: 1px dashed var(--lba-blue);
+        }
+
+        .primary-admin-btn {
+            background: var(--lba-blue);
+            color: var(--lba-white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Graduation Page Layout Card styling */
+        .graduation-view {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .graduation-view h3 {
+            color: var(--lba-green);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        /* Bottom Branded Footer Section Layout */
         .brand-footer {
             max-width: 1300px;
             width: 100%;
@@ -359,256 +419,237 @@
             border-top: 4px solid var(--lba-blue);
             border-radius: 8px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
         }
 
         .logo-display-frame {
-            min-height: 60px;
-            max-height: 90px;
-            max-width: 280px;
+            min-height: 50px;
+            max-height: 70px;
+            max-width: 220px;
             display: flex;
-            justify-content: center;
             align-items: center;
         }
-
         .logo-display-frame img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
         }
-
         .placeholder-logo-txt {
             color: #94a3b8;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-style: italic;
-            border: 2px dashed #cbd5e1;
-            padding: 10px 20px;
-            border-radius: 6px;
         }
 
-        /* Responsive Settings */
+        .admin-link-anchor {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .admin-link-anchor:hover {
+            color: var(--lba-blue);
+            text-decoration: underline;
+        }
+
+        /* Responsive Breakpoints */
         @media (max-width: 950px) {
             .tour-workspace { grid-template-columns: 1fr; }
             .tour-viewport { grid-template-columns: 1fr; }
-            .viewport-visuals { min-height: 250px; }
+            .viewport-footer-nav { width: 100%; }
+            .viewport-visuals { min-height: 230px; }
         }
     </style>
 </head>
 <body>
 
-    <header class="tour-header">
-        <div>
-            <h1>Lightbridge Academy® of Plano</h1>
-            <p style="font-size: 0.85rem; opacity: 0.9;">Interactive Tour & Curriculum Game Sandbox</p>
-        </div>
-        <div class="score-box" id="scoreDisplay">Seedlings Points: 0</div>
-    </header>
+    <div id="publicTourPageView">
+        <header class="tour-header">
+            <div>
+                <h1>Lightbridge Academy® of Plano</h1>
+                <p style="font-size: 0.8rem; opacity: 0.9;">Interactive Tour & Curriculum Game Sandbox</p>
+            </div>
+            <div class="header-actions-right">
+                <div class="score-box" id="scoreDisplay">Seedlings Points: 0</div>
+                <a href="https://lightbridgeacademy.com/schedule-a-tour" target="_blank" class="cta-header-link global-tour-link-target">🗓️ Schedule a Tour</a>
+            </div>
+        </header>
 
-    <main class="tour-workspace">
-        
-        <section class="tour-controls-sidebar">
-            
-            <article class="card">
-                <h2>Tour Directory Map</h2>
-                <nav class="map-directory">
-                    <button class="map-room-btn active" id="btn-infant" onclick="loadTourStop('infant')">
-                        <span>👶 1. Infant Suites</span>
-                        <span class="room-status-badge" id="status-infant">Active</span>
-                    </button>
-                    <button class="map-room-btn" id="btn-purple" onclick="loadTourStop('purple')">
-                        <span>🐱 2. Purple Cats Room</span>
-                        <span class="room-status-badge" id="status-purple">Locked</span>
-                    </button>
-                    <button class="map-room-btn" id="btn-orange" onclick="loadTourStop('orange')">
-                        <span>🦒 3. Orange Giraffe Room</span>
-                        <span class="room-status-badge" id="status-orange">Locked</span>
-                    </button>
-                    <button class="map-room-btn" id="btn-multipurpose" onclick="loadTourStop('multipurpose')">
-                        <span>🎨 4. Multi-Purpose Room</span>
-                        <span class="room-status-badge" id="status-multipurpose">Locked</span>
-                    </button>
-                    <button class="map-room-btn" id="btn-playground" onclick="loadTourStop('playground')">
-                        <span>🌳 5. Outdoor Playground</span>
-                        <span class="room-status-badge" id="status-playground">Locked</span>
-                    </button>
-                    <button class="map-room-btn" id="btn-bears" onclick="loadTourStop('bears')">
-                        <span>🐻 6. Brown Bears Room</span>
-                        <span class="room-status-badge" id="status-bears">Locked</span>
-                    </button>
-                </nav>
-            </article>
+        <main class="tour-workspace">
+            <section class="tour-controls-sidebar">
+                <article class="card">
+                    <h2>Tour Directory Map</h2>
+                    <nav class="map-directory">
+                        <button class="map-room-btn active" id="btn-infant" onclick="loadTourStop('infant')">
+                            <span>👶 1. Infant Suites</span><span class="room-status-badge" id="status-infant">Active</span>
+                        </button>
+                        <button class="map-room-btn" id="btn-purple" onclick="loadTourStop('purple')">
+                            <span>🐱 2. Purple Cats Room</span><span class="room-status-badge" id="status-purple">Locked</span>
+                        </button>
+                        <button class="map-room-btn" id="btn-orange" onclick="loadTourStop('orange')">
+                            <span>🦒 3. Orange Giraffe Room</span><span class="room-status-badge" id="status-orange">Locked</span>
+                        </button>
+                        <button class="map-room-btn" id="btn-multipurpose" onclick="loadTourStop('multipurpose')">
+                            <span>🎨 4. Multi-Purpose Room</span><span class="room-status-badge" id="status-multipurpose">Locked</span>
+                        </button>
+                        <button class="map-room-btn" id="btn-playground" onclick="loadTourStop('playground')">
+                            <span>🌳 5. Outdoor Playground</span><span class="room-status-badge" id="status-playground">Locked</span>
+                        </button>
+                        <button class="map-room-btn" id="btn-bears" onclick="loadTourStop('bears')">
+                            <span>🐻 6. Brown Bears Room</span><span class="room-status-badge" id="status-bears">Locked</span>
+                        </button>
+                    </nav>
+                </article>
+            </section>
 
-            <article class="card">
-                <h2>System Configurations</h2>
-                
-                <div class="config-form-group" style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border-gray);">
-                    <label style="color: var(--lba-red);">Tour Scheduling Web Link</label>
-                    <input type="url" class="text-input-style" id="configTourUrl" value="https://lightbridgeacademy.com/schedule-a-tour" placeholder="https://your-crm-booking-link..." oninput="updateTourHyperlinks()">
-                </div>
-
-                <p style="font-size: 0.75rem; margin-bottom: 12px; color: #64748b;">Skin your virtual center environment spaces with physical background photos:</p>
-                <div class="config-form-group"><label>Infant Suites Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'infant')"></div>
-                <div class="config-form-group"><label>Purple Cats Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'purple')"></div>
-                <div class="config-form-group"><label>Orange Giraffe Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'orange')"></div>
-                <div class="config-form-group"><label>Multi-Purpose Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'multipurpose')"></div>
-                <div class="config-form-group"><label>Outdoor Playground Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'playground')"></div>
-                <div class="config-form-group"><label>Brown Bears Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'bears')"></div>
-                
-                <div class="config-form-group" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-gray);">
-                    <label style="color: var(--lba-blue);">Corporate Logo Upload</label>
-                    <input type="file" class="file-input-style" accept="image/*" onchange="processLogoUpload(event)">
-                </div>
-            </article>
-
-        </section>
-
-        <section class="tour-viewport" id="viewportWindow">
-            
-            <div class="viewport-interaction" id="viewportLeftPanel">
-                <div>
-                    <h2 class="classroom-title" id="roomTitle">Young & Mobile Infant Suites</h2>
-                    <span class="age-sub-rule" id="roomAge">6 Weeks to 18 Months</span>
-                    <p class="curriculum-narrative" id="roomDescription">Loading stage details...</p>
-                </div>
-
-                <div id="interactiveContentWrapper">
-                    <div class="gameplay-box">
-                        <h4 id="challengeHeader">Seedlings Milestone Challenge</h4>
-                        <p id="challengePrompt">Loading prompt question...</p>
-                        <div class="choice-btn-stack" id="choiceContainer"></div>
+            <section class="tour-viewport" id="viewportWindow">
+                <div class="viewport-interaction" id="viewportLeftPanel">
+                    <div>
+                        <h2 class="classroom-title" id="roomTitle">Young & Mobile Infant Suites</h2>
+                        <span class="age-sub-rule" id="roomAge">6 Weeks to 18 Months</span>
+                        <p class="curriculum-narrative" id="roomDescription">Loading stage details...</p>
                     </div>
 
-                    <div style="margin-top: 15px;">
-                        <a href="https://lightbridgeacademy.com/schedule-a-tour" target="_blank" class="cta-tour-link global-tour-link-target">🗓️ Schedule a Plano Tour</a>
+                    <div id="interactiveContentWrapper">
+                        <div class="gameplay-box">
+                            <h4 id="challengeHeader">Seedlings Milestone Challenge</h4>
+                            <p id="challengePrompt">Loading prompt question...</p>
+                            <div class="choice-btn-stack" id="choiceContainer"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="viewport-visuals" id="canvasBackgroundView">
-                <div class="asset-tag" id="assetTagDisplay">Default Asset Active</div>
-                <div class="childhood-photo-sphere" id="childPicSphere">
-                    <img id="childProfilePic" src="" alt="Age Aligned Child">
+                <div class="viewport-footer-nav" id="viewportFooterNavigation">
+                    <button class="nav-scroller-btn" id="prevRoomBtn" onclick="navigateRoomStep(-1)">◀ Back</button>
+                    <span style="font-size:0.8rem; color:#64748b; font-weight:600;" id="roomProgressText">Room 1 of 6</span>
+                    <button class="nav-scroller-btn" id="nextRoomBtn" onclick="navigateRoomStep(1)">Next ▶</button>
                 </div>
+
+                <div class="viewport-visuals" id="canvasBackgroundView">
+                    <div class="asset-tag" id="assetTagDisplay">Default Asset Active</div>
+                    <div class="childhood-photo-sphere" id="childPicSphere">
+                        <img id="childProfilePic" src="" alt="Age Aligned Child">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="adminLoginGateView" style="display: none;">
+        <main class="card admin-login-box">
+            <h2 style="color:var(--lba-blue); margin-bottom:15px;">Admin Gateway Login</h2>
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:20px;">Provide center manager verification parameters to modify assets.</p>
+            <div class="config-form-group">
+                <input type="text" class="text-input-style" id="loginUser" placeholder="Username (admin)">
+            </div>
+            <div class="config-form-group">
+                <input type="password" class="text-input-style" id="loginPass" placeholder="Password (Plano2026)">
+            </div>
+            <button class="primary-admin-btn" onclick="authenticateAdminCredentials()">Verify Credentials</button>
+            <p style="margin-top:15px;"><a href="#" onclick="routeToView('public')" style="font-size:0.8rem; color:var(--lba-blue);">◀ Return to Public Tour</a></p>
+        </main>
+    </div>
+
+    <div id="adminConsoleConfigurationView" style="display: none;">
+        <main class="card admin-view-container" style="display:block;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:2px solid var(--bg-light); padding-bottom:10px;">
+                <h2 style="color:var(--lba-blue); border:none; margin:0;">Center Management Studio</h2>
+                <button class="nav-scroller-btn" onclick="routeToView('public')">Exit Admin Panel ➔</button>
+            </div>
+            
+            <div class="config-form-group" style="margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid var(--border-gray);">
+                <label style="color: var(--lba-red);">Tour Scheduling Hub Link Target</label>
+                <input type="url" class="text-input-style" id="configTourUrl" value="https://lightbridgeacademy.com/schedule-a-tour" oninput="updateTourHyperlinks()">
             </div>
 
-        </section>
-
-    </main>
+            <h3 style="font-size:0.95rem; text-transform:uppercase; color:#475569; margin-bottom:15px; letter-spacing:0.5px;">Upload Local Background Ecosystem Files:</h3>
+            <div class="config-form-group"><label>1. Infant Suites Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'infant')"></div>
+            <div class="config-form-group"><label>2. Purple Cats Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'purple')"></div>
+            <div class="config-form-group"><label>3. Orange Giraffe Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'orange')"></div>
+            <div class="config-form-group"><label>4. Multi-Purpose Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'multipurpose')"></div>
+            <div class="config-form-group"><label>5. Outdoor Playground Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'playground')"></div>
+            <div class="config-form-group"><label>6. Brown Bears Background</label><input type="file" class="file-input-style" onchange="processLocalUpload(event, 'bears')"></div>
+            
+            <div class="config-form-group" style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border-gray);">
+                <label style="color: var(--lba-blue);">Center Corporate Logo Attachment (.png / .jpg)</label>
+                <input type="file" class="file-input-style" accept="image/*" onchange="processLogoUpload(event)">
+            </div>
+        </main>
+    </div>
 
     <footer class="brand-footer">
         <div class="logo-display-frame" id="logoFrame">
-            <span class="placeholder-logo-txt" id="logoPlaceholder">No Brand Logo Uploaded (Appears Here)</span>
+            <span class="placeholder-logo-txt" id="logoPlaceholder">No Custom Brand Logo Uploaded</span>
         </div>
-        <p style="font-size: 0.75rem; color: #94a3b8;">© Lightbridge Academy of Plano • Configurable Parent Onboarding Experience</p>
+        <div>
+            <p style="font-size: 0.75rem; color: #94a3b8; text-align:right;">© Lightbridge Academy of Plano • Interactive Parent Onboarding Platform</p>
+            <p style="text-align:right; margin-top:2px;"><a href="#" class="admin-link-anchor" onclick="routeToView('login')">Center Admin Login</a></p>
+        </div>
     </footer>
 
     <script>
+        const roomSequenceKeys = ['infant', 'purple', 'orange', 'multipurpose', 'playground', 'bears'];
+        
         const tourDatabase = {
-            infant: {
-                title: "Young & Mobile Infant Suites",
-                age: "6 Weeks to 18 Months",
-                desc: "Welcome to our infant spaces. Our Seedlings layout is organized around individual development patterns and safe, sanitized spaces.",
-                prompt: "YLO is exploring. To maximize motor capacity while emphasizing our focus on clean classrooms, which activity is priority?",
-                choices: [
-                    { text: "Encourage floor tummy-time on our sterilized soft mats.", correct: true, points: 15 },
-                    { text: "Place the infant into a stationary swing seat container.", correct: false, points: 0 }
-                ],
-                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1576489922094-27859fe22315?auto=format&fit=crop&w=600&q=80')",
-                childImg: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=300&q=80"
-            },
-            purple: {
-                title: "The Purple Cats Room",
-                age: "18 to 24 Months",
-                desc: "Toddlers in our Purple Cats space are working on emotional vocabulary expression, cooperative sharing, and early language development.",
-                prompt: "During our Seedlings Language circle presentation, how do we reinforce communication skills?",
-                choices: [
-                    { text: "Have children fill out repetitive language tracing worksheets.", correct: false, points: 0 },
-                    { text: "Have them point to matching character cards like 'Meow' for Cat.", correct: true, points: 15 }
-                ],
-                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1564429135360-643093c4f7be?auto=format&fit=crop&w=600&q=80')",
-                childImg: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=300&q=80"
-            },
-            orange: {
-                title: "The Orange Giraffe Room",
-                age: "2 to 3 Years",
-                desc: "Two-year-olds focus on cognitive tracking skills, balance puzzles, and independence routines such as potty training.",
-                prompt: "How does our daily classroom pattern encourage toddler success during routine potty training milestones?",
-                choices: [
-                    { text: "Establishing a predictable, visual handwashing and potty sequence.", correct: true, points: 15 },
-                    { text: "Changing activities randomly to surprise the toddlers.", correct: false, points: 0 }
-                ],
-                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=600&q=80')",
-                childImg: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=300&q=80"
-            },
-            multipurpose: {
-                title: "The Multi-Purpose Room",
-                age: "All Age Tiers Enrichment",
-                desc: "An internal learning ecosystem hosting advanced specialized enrichment programs, rainy-day gross motor activities, and Seedlings structural music courses.",
-                prompt: "Weather forces all activities indoors. How does the Multi-Purpose space preserve your child's daily physical development loops?",
-                choices: [
-                    { text: "It provides an open, indoor environment for physical activities.", correct: true, points: 15 },
-                    { text: "Children remain seated at desks watching educational media frames.", correct: false, points: 0 }
-                ],
-                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1540479859555-17af45c78602?auto=format&fit=crop&w=600&q=80')",
-                childImg: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=300&q=80"
-            },
-            playground: {
-                title: "The Outdoor Playground",
-                age: "Active Gross Motor Focus",
-                desc: "Secure, weather-protected premium outdoor surfacing tailored specifically for safe running, physical coordination games, and group interaction skills.",
-                prompt: "During outdoor tracking activities, how do our playground zones protect learning safely?",
-                choices: [
-                    { text: "By using age-separated play areas and safety-certified structures.", correct: true, points: 15 },
-                    { text: "By utilizing standard concrete surfaces with unmonitored structures.", correct: false, points: 0 }
-                ],
-                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=600&q=80')",
-                childImg: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=300&q=80"
-            },
-            bears: {
-                title: "The Brown Bears Room",
-                age: "4 to 5 Years",
-                desc: "Our Pre-K graduation engine. This space sharpens advanced phonics processing, foundational math, and social-emotional confidence structures.",
-                prompt: "To verify total Kindergarten readiness tracking metrics via the Journey app, what parameter is analyzed?",
-                choices: [
-                    { text: "Rote speed-reading memorization cards.", correct: false, points: 0 },
-                    { text: "90%+ mastery across all core Seedlings learning indicators.", correct: true, points: 20 }
-                ],
-                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80')",
-                childImg: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=300&q=80"
-            }
+            infant: { title: "Young & Mobile Infant Suites", age: "6 Weeks to 18 Months", desc: "Welcome to our infant spaces. Our Seedlings layout is organized around individual development patterns and safe, sanitized spaces.", prompt: "YLO is exploring. To maximize motor capacity while emphasizing our focus on clean classrooms, which activity is priority?", choices: [{ text: "Encourage floor tummy-time on our sterilized soft mats.", correct: true, points: 15 }, { text: "Place the infant into a stationary swing seat container.", correct: false, points: 0 }], defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1576489922094-27859fe22315?auto=format&fit=crop&w=600&q=80')", childImg: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=300&q=80" },
+            purple: { title: "The Purple Cats Room", age: "18 to 24 Months", desc: "Toddlers in our Purple Cats space are working on emotional vocabulary expression, cooperative sharing, and early language development.", prompt: "During our Seedlings Language circle presentation, how do we reinforce communication skills?", choices: [{ text: "Have children fill out repetitive language tracing worksheets.", correct: false, points: 0 }, { text: "Have them point to matching character cards like 'Meow' for Cat.", correct: true, points: 15 }], defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1564429135360-643093c4f7be?auto=format&fit=crop&w=600&q=80')", childImg: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=300&q=80" },
+            orange: { title: "The Orange Giraffe Room", age: "2 to 3 Years", desc: "Two-year-olds focus on cognitive tracking skills, balance puzzles, and independence routines such as potty training.", prompt: "How does our daily classroom pattern encourage toddler success during routine potty training milestones?", choices: [{ text: "Establishing a predictable, visual handwashing and potty sequence.", correct: true, points: 15 }, { text: "Changing activities randomly to surprise the toddlers.", correct: false, points: 0 }], defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=600&q=80')", childImg: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=300&q=80" },
+            multipurpose: { title: "The Multi-Purpose Room", age: "All Age Tiers Enrichment", desc: "An internal learning ecosystem hosting advanced specialized enrichment programs, rainy-day gross motor activities, and Seedlings structural music courses.", prompt: "Weather forces all activities indoors. How does the Multi-Purpose space preserve your child's daily physical development loops?", choices: [{ text: "It provides an open, indoor environment for physical activities.", correct: true, points: 15 }, { text: "Children remain seated at desks watching educational media frames.", correct: false, points: 0 }], defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1540479859555-17af45c78602?auto=format&fit=crop&w=600&q=80')", childImg: "https://images.unsplash.com/photo-1540479859555-17af45c78602?auto=format&fit=crop&w=300&q=80" },
+            playground: { title: "The Outdoor Playground", age: "Active Gross Motor Focus", desc: "Secure, weather-protected premium outdoor surfacing tailored specifically for safe running, physical coordination games, and group interaction skills.", prompt: "During outdoor tracking activities, how do our playground zones protect learning safely?", choices: [{ text: "By using age-separated play areas and safety-certified structures.", correct: true, points: 15 }, { text: "By utilizing standard concrete surfaces with unmonitored structures.", correct: false, points: 0 }], defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=600&q=80')", childImg: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=300&q=80" },
+            bears: { title: "The Brown Bears Room", age: "4 to 5 Years", desc: "Our Pre-K graduation engine. This space sharpens advanced phonics processing, foundational math, and social-emotional confidence structures.", prompt: "To verify total Kindergarten readiness tracking metrics via the Journey app, what parameter is analyzed?", choices: [{ text: "Rote speed-reading memorization cards.", correct: false, points: 0 }, { text: "90%+ mastery across all core Seedlings learning indicators.", correct: true, points: 20 }], defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80')", childImg: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=300&q=80" }
         };
 
-        // Runtime State Vectors
         let currentScore = 0;
         let activeRoomKey = "infant";
         const customUploadedBackgrounds = { infant: null, purple: null, orange: null, multipurpose: null, playground: null, bears: null };
         const unlockedRooms = { infant: true, purple: false, orange: false, multipurpose: false, playground: false, bears: false };
 
-        // Interface Render Controller
+        // Router routing module switching viewport states
+        function routeToView(viewTarget) {
+            document.getElementById('publicTourPageView').style.display = (viewTarget === 'public') ? 'block' : 'none';
+            document.getElementById('adminLoginGateView').style.display = (viewTarget === 'login') ? 'block' : 'none';
+            document.getElementById('adminConsoleConfigurationView').style.display = (viewTarget === 'admin') ? 'block' : 'none';
+            
+            if(viewTarget === 'public') {
+                loadTourStop(activeRoomKey);
+            }
+        }
+
+        // Simple auth protocol mapping parameters
+        function authenticateAdminCredentials() {
+            const u = document.getElementById('loginUser').value;
+            const p = document.getElementById('loginPass').value;
+            if(u === 'admin' && p === 'Plano2026') {
+                routeToView('admin');
+            } else {
+                alert("❌ Authentication Failed. Check credentials file guidelines parameters.");
+            }
+        }
+
+        // Interface Node View Controller
         function loadTourStop(roomKey) {
             if (!unlockedRooms[roomKey]) {
-                alert("🔒 This zone is locked! Solve the previous classroom milestone to unlock access across the Plano center directory map.");
+                alert("🔒 This zone is locked! Solve the previous classroom milestone challenge first to unlock directory mapping tracks.");
                 return;
             }
 
             activeRoomKey = roomKey;
             const data = tourDatabase[roomKey];
 
-            // Restore primary viewport layout if transitioning back out of final graduation card screen
             document.getElementById('roomTitle').innerText = data.title;
             document.getElementById('roomAge').innerText = data.age;
             document.getElementById('roomDescription').style.display = "block";
             document.getElementById('roomDescription').innerText = data.desc;
             document.getElementById('interactiveContentWrapper').style.display = "block";
             document.getElementById('childPicSphere').style.display = "block";
+            document.getElementById('viewportFooterNavigation').style.display = "flex";
 
             document.querySelectorAll('.map-room-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`btn-${roomKey}`).classList.add('active');
 
             renderBackgroundLayer(roomKey);
+            updateFooterNavButtons();
 
             const choiceBox = document.getElementById('choiceContainer');
             choiceBox.innerHTML = "";
@@ -621,8 +662,29 @@
                 choiceBox.appendChild(button);
             });
 
-            // Ensure hyperlinked configurations synchronize across runtime view swaps
             updateTourHyperlinks();
+        }
+
+        // FIXED: Next & Back structural scroll hooks runtime processors
+        function navigateRoomStep(direction) {
+            const currentIndex = roomSequenceKeys.indexOf(activeRoomKey);
+            const targetIndex = currentIndex + direction;
+            
+            if(targetIndex >= 0 && targetIndex < roomSequenceKeys.length) {
+                const targetKey = roomSequenceKeys[targetIndex];
+                if(unlockedRooms[targetKey]) {
+                    loadTourStop(targetKey);
+                } else {
+                    alert("🔒 The next classroom environment is currently locked. Complete the active Seedlings quiz scenario to pass.");
+                }
+            }
+        }
+
+        function updateFooterNavButtons() {
+            const currentIndex = roomSequenceKeys.indexOf(activeRoomKey);
+            document.getElementById('prevRoomBtn').disabled = (currentIndex === 0);
+            document.getElementById('nextRoomBtn').disabled = (currentIndex === roomSequenceKeys.length - 1);
+            document.getElementById('roomProgressText').innerText = `Room ${currentIndex + 1} of 6`;
         }
 
         function evaluationSelection(choice, clickedButton, roomKey) {
@@ -641,14 +703,9 @@
         }
 
         function unlockNextInSequence(currentKey) {
-            let nextKey = null;
-            if (currentKey === 'infant') nextKey = 'purple';
-            else if (currentKey === 'purple') nextKey = 'orange';
-            else if (currentKey === 'orange') nextKey = 'multipurpose';
-            else if (currentKey === 'multipurpose') nextKey = 'playground';
-            else if (currentKey === 'playground') nextKey = 'bears';
-
-            if (nextKey) {
+            const currentIndex = roomSequenceKeys.indexOf(currentKey);
+            if (currentIndex < roomSequenceKeys.length - 1) {
+                const nextKey = roomSequenceKeys[currentIndex + 1];
                 unlockedRooms[nextKey] = true;
                 const badge = document.getElementById(`status-${nextKey}`);
                 if (badge.innerText === "Locked") {
@@ -656,17 +713,18 @@
                     badge.style.background = "var(--lba-yellow)";
                     badge.style.color = "#1a1a1a";
                 }
+                updateFooterNavButtons();
             } else {
                 renderFinalGraduationScreen();
             }
         }
 
-        // NEW: Generates final graduation wrap interface view containing prominent actionable CTAs
         function renderFinalGraduationScreen() {
             document.getElementById('roomTitle').innerText = "🎓 Journey Completed!";
             document.getElementById('roomAge').innerText = "Plano Kindergarten Send-Off";
             document.getElementById('roomDescription').style.display = "none";
             document.getElementById('childPicSphere').style.display = "none";
+            document.getElementById('viewportFooterNavigation').style.display = "none";
 
             const interactiveContainer = document.getElementById('interactiveContentWrapper');
             const targetUrl = document.getElementById('configTourUrl').value;
@@ -676,10 +734,9 @@
                     <h3>Congratulations!</h3>
                     <p style="margin-bottom: 20px; line-height:1.6; color:#475569;">
                         Your little one has explored every room and mastered their core milestones, earning <strong>${currentScore} Seedlings Points</strong>! 
-                        Now, take the next step to experience our physical Plano center in person.
                     </p>
                     <div style="margin-top: 25px;">
-                        <a href="${targetUrl}" target="_blank" class="cta-tour-link" style="padding: 18px 32px; font-size:1.1rem; background:var(--lba-green); box-shadow: 0 4px 15px rgba(140,198,62,0.3);">
+                        <a href="${targetUrl}" target="_blank" class="cta-header-link" style="padding: 15px 30px; font-size:1rem; background:var(--lba-green); box-shadow: 0 4px 15px rgba(140,198,62,0.3);">
                             🌟 Schedule an In-Person Plano Tour
                         </a>
                     </div>
@@ -687,7 +744,6 @@
             `;
         }
 
-        // Dynamic hyperlink updater reading from config form element
         function updateTourHyperlinks() {
             const configuredUrl = document.getElementById('configTourUrl').value;
             const linkTargets = document.querySelectorAll('.global-tour-link-target');
@@ -716,11 +772,11 @@
 
             if (customUploadedBackgrounds[roomKey]) {
                 displayCanvas.style.backgroundImage = customUploadedBackgrounds[roomKey];
-                tagDisplay.innerText = "Custom Configured Background Active";
+                tagDisplay.innerText = "Custom Background Active";
                 tagDisplay.style.background = "var(--lba-green)";
             } else {
                 displayCanvas.style.backgroundImage = tourDatabase[roomKey].defaultBg;
-                tagDisplay.innerText = "Default Tour Environment Active";
+                tagDisplay.innerText = "Default Environment Active";
                 tagDisplay.style.background = "var(--lba-blue)";
             }
         }
