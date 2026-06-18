@@ -1,0 +1,163 @@
+/* Base Style Foundations */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Master Game Structural Container */
+.game-container {
+    max-width: 1100px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #eef2f5;
+}
+
+/* Header UI Elements */
+.game-header {
+    background: #1a365d; /* Dark Premium Navy blue anchoring */
+    color: #ffffff;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress-track .step.current {
+    color: #b57cff; /* Accent color matching Purple Cats Room */
+    font-weight: bold;
+}
+
+.score-badge {
+    background: #38a169;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Side-by-Side Flex Layout Strategy */
+.game-split-layout {
+    display: flex;
+    flex-direction: row; /* Forces side-by-side positioning */
+    min-height: 550px;
+}
+
+/* Equal panel layout share sizing */
+.panel {
+    flex: 1; 
+    padding: 35px;
+}
+
+/* Interaction Controls Styling (Left Side) */
+.interaction-panel {
+    border-right: 1px solid #edf2f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.badge {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.purple-tag { background: #ebd7ff; color: #6b21a8; }
+.age-range { color: #718096; margin-bottom: 20px; font-style: italic; }
+.narrative-text { font-size: 1.05rem; line-height: 1.6; color: #2d3748; margin-bottom: 30px; }
+
+.interactive-box {
+    background: #f7fafc;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 4px solid #b57cff;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.choice-btn {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #cbd5e0;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.choice-btn:hover { border-color: #b57cff; background: #faf5ff; }
+
+/* Visual Side Structure rules (Right Side) */
+.visual-panel {
+    background: #fcfdfd;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.asset-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.asset-label {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(26, 54, 93, 0.85);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.game-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; /* Keeps image proportions neat without stretching */
+    border-radius: 8px;
+    display: block;
+}
+
+/* Mobile Breakpoint Optimization (Stack items on tiny views) */
+@media (max-width: 768px) {
+    .game-split-layout {
+        flex-direction: column; /* Switches from side-by-side to vertical stack */
+    }
+    .interaction-panel {
+        border-right: none;
+        border-bottom: 1px solid #edf2f7;
+    }
+    body { padding: 10px; }
+}
