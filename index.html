@@ -43,7 +43,7 @@
             margin: 0 auto 20px auto;
             background: var(--lba-blue);
             color: var(--lba-white);
-            padding: 15px 25px;
+            padding: 20px 25px;
             border-radius: 12px;
             display: flex;
             justify-content: space-between;
@@ -51,16 +51,34 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.06);
         }
 
-        .tour-header h1 {
+        .header-title-block h1 {
             font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        /* Header Contact Info Configurations */
+        .header-contact-meta {
+            font-size: 0.75rem;
+            opacity: 0.95;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .header-contact-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .header-actions-right {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-shrink: 0;
         }
 
         .score-box {
@@ -70,6 +88,7 @@
             font-weight: 700;
             font-size: 0.9rem;
             border: 1px solid var(--lba-white);
+            white-space: nowrap;
         }
 
         /* Core Application Split Layout */
@@ -345,6 +364,7 @@
             letter-spacing: 0.5px;
             box-shadow: 0 3px 8px rgba(238, 49, 36, 0.2);
             transition: background 0.2s ease;
+            white-space: nowrap;
         }
 
         .cta-header-link:hover {
@@ -353,9 +373,9 @@
 
         /* ADMIN PAGE SPECIFIC VIEWS */
         .admin-view-container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 40px auto;
-            display: none; /* Controlled by toggle view engine */
+            display: none; 
         }
 
         .admin-login-box {
@@ -398,15 +418,52 @@
             margin-top: 10px;
         }
 
-        /* Graduation Page Layout Card styling */
+        /* Graduation Page Layout Card styling (FIXED: Overlap text safety alignment) */
         .graduation-view {
             text-align: center;
-            padding: 40px 20px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .graduation-view h3 {
             color: var(--lba-green);
             font-size: 1.8rem;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+        }
+        .graduation-view p {
+            margin-bottom: 24px;
+            line-height: 1.6;
+            color: #475569;
+        }
+        .graduation-cta-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .cta-graduation-link {
+            display: inline-block;
+            background: var(--lba-green);
+            color: var(--lba-white);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(140,198,62,0.3);
+            transition: background 0.2s, transform 0.1s;
+            white-space: normal;
+            word-wrap: break-word;
+            max-width: 100%;
+            line-height: 1.4;
+        }
+        .cta-graduation-link:hover {
+            background: #7bb333;
+            transform: translateY(-1px);
         }
 
         /* Bottom Branded Footer Section Layout */
@@ -459,6 +516,8 @@
             .tour-viewport { grid-template-columns: 1fr; }
             .viewport-footer-nav { width: 100%; }
             .viewport-visuals { min-height: 230px; }
+            .tour-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .header-actions-right { width: 100%; justify-content: space-between; }
         }
     </style>
 </head>
@@ -466,9 +525,13 @@
 
     <div id="publicTourPageView">
         <header class="tour-header">
-            <div>
+            <div class="header-title-block">
                 <h1>Lightbridge Academy® of Plano</h1>
-                <p style="font-size: 0.8rem; opacity: 0.9;">Interactive Tour & Curriculum Game Sandbox</p>
+                <div class="header-contact-meta">
+                    <span id="lblHeaderAddress">📍 6101 Windhaven Pkwy, Plano, TX 75093</span>
+                    <span id="lblHeaderPhone">📞 (469) 208-0111</span>
+                    <span id="lblHeaderEmail">✉️ plano@lightbridgeacademy.com</span>
+                </div>
             </div>
             <div class="header-actions-right">
                 <div class="score-box" id="scoreDisplay">Seedlings Points: 0</div>
@@ -539,7 +602,7 @@
     <div id="adminLoginGateView" style="display: none;">
         <main class="card admin-login-box">
             <h2 style="color:var(--lba-blue); margin-bottom:15px;">Admin Gateway Login</h2>
-            <p style="font-size:0.8rem; color:#64748b; margin-bottom:20px;">Provide center manager verification parameters to modify assets.</p>
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:20px;">Provide center manager credentials to modify assets and updates.</p>
             <div class="config-form-group">
                 <input type="text" class="text-input-style" id="loginUser" placeholder="Username (admin)">
             </div>
@@ -558,8 +621,22 @@
                 <button class="nav-scroller-btn" onclick="routeToView('public')">Exit Admin Panel ➔</button>
             </div>
             
+            <h3 style="font-size:0.95rem; text-transform:uppercase; color:#475569; margin-bottom:12px; letter-spacing:0.5px;">Header Contact Configurations</h3>
+            <div class="config-form-group">
+                <label>Center Physical Address</label>
+                <input type="text" class="text-input-style" id="configAddress" value="6101 Windhaven Pkwy, Plano, TX 75093" oninput="applyContactConfigurations()">
+            </div>
+            <div class="config-form-group">
+                <label>Center Phone Number</label>
+                <input type="text" class="text-input-style" id="configPhone" value="(469) 208-0111" oninput="applyContactConfigurations()">
+            </div>
             <div class="config-form-group" style="margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid var(--border-gray);">
-                <label style="color: var(--lba-red);">Tour Scheduling Hub Link Target</label>
+                <label>Center Email Routing Address</label>
+                <input type="email" class="text-input-style" id="configEmail" value="plano@lightbridgeacademy.com" oninput="applyContactConfigurations()">
+            </div>
+
+            <div class="config-form-group" style="margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid var(--border-gray);">
+                <label style="color: var(--lba-red); font-weight: 700;">Tour Scheduling Link URL</label>
                 <input type="url" class="text-input-style" id="configTourUrl" value="https://lightbridgeacademy.com/schedule-a-tour" oninput="updateTourHyperlinks()">
             </div>
 
@@ -605,7 +682,7 @@
         const customUploadedBackgrounds = { infant: null, purple: null, orange: null, multipurpose: null, playground: null, bears: null };
         const unlockedRooms = { infant: true, purple: false, orange: false, multipurpose: false, playground: false, bears: false };
 
-        // Router routing module switching viewport states
+        // Router View Sync
         function routeToView(viewTarget) {
             document.getElementById('publicTourPageView').style.display = (viewTarget === 'public') ? 'block' : 'none';
             document.getElementById('adminLoginGateView').style.display = (viewTarget === 'login') ? 'block' : 'none';
@@ -616,18 +693,28 @@
             }
         }
 
-        // Simple auth protocol mapping parameters
         function authenticateAdminCredentials() {
             const u = document.getElementById('loginUser').value;
             const p = document.getElementById('loginPass').value;
             if(u === 'admin' && p === 'Plano2026') {
                 routeToView('admin');
             } else {
-                alert("❌ Authentication Failed. Check credentials file guidelines parameters.");
+                alert("❌ Authentication Failed.");
             }
         }
 
-        // Interface Node View Controller
+        // Live Header Configuration Updates
+        function applyContactConfigurations() {
+            const addr = document.getElementById('configAddress').value;
+            const phone = document.getElementById('configPhone').value;
+            const email = document.getElementById('configEmail').value;
+
+            document.getElementById('lblHeaderAddress').innerText = addr ? `📍 ${addr}` : '';
+            document.getElementById('lblHeaderPhone').innerText = phone ? `📞 ${phone}` : '';
+            document.getElementById('lblHeaderEmail').innerText = email ? `✉️ ${email}` : '';
+        }
+
+        // Interface stop configuration injector
         function loadTourStop(roomKey) {
             if (!unlockedRooms[roomKey]) {
                 alert("🔒 This zone is locked! Solve the previous classroom milestone challenge first to unlock directory mapping tracks.");
@@ -665,7 +752,6 @@
             updateTourHyperlinks();
         }
 
-        // FIXED: Next & Back structural scroll hooks runtime processors
         function navigateRoomStep(direction) {
             const currentIndex = roomSequenceKeys.indexOf(activeRoomKey);
             const targetIndex = currentIndex + direction;
@@ -719,6 +805,7 @@
             }
         }
 
+        // FIXED: Re-engineered final view stack layout to prevent overlapping text issues
         function renderFinalGraduationScreen() {
             document.getElementById('roomTitle').innerText = "🎓 Journey Completed!";
             document.getElementById('roomAge').innerText = "Plano Kindergarten Send-Off";
@@ -732,11 +819,12 @@
             interactiveContainer.innerHTML = `
                 <div class="graduation-view">
                     <h3>Congratulations!</h3>
-                    <p style="margin-bottom: 20px; line-height:1.6; color:#475569;">
+                    <p>
                         Your little one has explored every room and mastered their core milestones, earning <strong>${currentScore} Seedlings Points</strong>! 
+                        Now, schedule a visit to experience our physical Plano center in person.
                     </p>
-                    <div style="margin-top: 25px;">
-                        <a href="${targetUrl}" target="_blank" class="cta-header-link" style="padding: 15px 30px; font-size:1rem; background:var(--lba-green); box-shadow: 0 4px 15px rgba(140,198,62,0.3);">
+                    <div class="graduation-cta-container">
+                        <a href="${targetUrl}" target="_blank" class="cta-graduation-link global-tour-link-target">
                             🌟 Schedule an In-Person Plano Tour
                         </a>
                     </div>
