@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lightbridge Journey: Plano Interactive Tour</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Lightbridge Corporate Brand Guidelines Design Palette (2022 Spec Sheet) */
+        :root {
+            --lba-blue: #008acb;      /* Pantone 7461C */
+            --lba-red: #ee3123;       /* Pantone 485C */
+            --lba-yellow: #ffd400;    /* Pantone 012C */
+            --lba-green: #8cc63e;     /* Pantone 376C (From Guidelines: RGB 141/198/63 or hex #8cc63e) */
+            --lba-white: #ffffff;
+            --text-dark: #1a1a1a;
+            --bg-light: #f4f7fa;
+            --border-gray: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Libre Franklin', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding: 20px;
+        }
+
+        .tour-header {
+            max-width: 1300px;
+            margin: 0 auto 20px auto;
+            background: var(--lba-blue);
+            color: var(--lba-white);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        }
+
+        .tour-header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .score-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 1px solid var(--lba-white);
+        }
+
+        /* Core Application Split Layout */
+        .tour-workspace {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+        }
+
+        /* LEFT SIDE: The Interactive Tour Map & Admin Configuration */
+        .tour-controls-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--lba-white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-gray);
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            color: var(--lba-blue);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tour Directory Map Buttons */
+        .map-directory {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .map-room-btn {
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            background: var(--bg-light);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .map-room-btn:hover {
+            background: #e9f2fa;
+            border-color: var(--lba-blue);
+        }
+
+        .map-room-btn.active {
+            background: #e0f0f9;
+            border-color: var(--lba-blue);
+            color: var(--lba-blue);
+        }
+
+        .room-status-badge {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #cbd5e1;
+            color: #475569;
+            font-weight: 700;
+        }
+
+        .map-room-btn.active .room-status-badge {
+            background: var(--lba-blue);
+            color: var(--lba-white);
+        }
+
+        .map-room-btn.completed .room-status-badge {
+            background: var(--lba-green);
+            color: var(--lba-white);
+        }
+
+        /* Configurator Forms styling */
+        .config-form-group {
+            margin-bottom: 12px;
+        }
+        .config-form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .file-input-style {
+            width: 100%;
+            font-size: 0.8rem;
+            padding: 4px;
+            border: 1px dashed var(--lba-blue);
+            border-radius: 4px;
+        }
+
+        /* RIGHT SIDE: Immersive Viewport & Presentation Engine */
+        .tour-viewport {
+            background: var(--lba-white);
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            min-height: 650px;
+            border: 1px solid var(--border-gray);
+        }
+
+        /* Classroom Info & Content Canvas (Left of Viewport) */
+        .viewport-interaction {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .classroom-title {
+            font-size: 2.2rem;
+            color: var(--lba-blue);
+            margin-bottom: 4px;
+        }
+
+        .age-sub-rule {
+            font-family: 'Baskerville', 'Georgia', serif;
+            font-style: italic; /* Mandatory Lightbridge Accent typography styling */
+            color: var(--lba-red);
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .curriculum-narrative {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 30px;
+        }
+
+        /* Gameplay Interaction Box */
+        .gameplay-box {
+            background: var(--bg-light);
+            border-left: 5px solid var(--lba-blue);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+        }
+
+        .gameplay-box h4 {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #475569;
+        }
+
+        .choice-btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .choice-option {
+            background: var(--lba-white);
+            border: 2px solid var(--border-gray);
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .choice-option:hover {
+            border-color: var(--lba-blue);
+            background: #f0f7fc;
+        }
+
+        .choice-option.correct-choice {
+            border-color: var(--lba-green);
+            background: #f2fbeb;
+        }
+
+        /* Classroom Background Window & Live Mock Photo frame (Right of Viewport) */
+        .viewport-visuals {
+            background-color: #cbd5e1;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: background-image 0.30s ease;
+        }
+
+        .asset-tag {
+            background: rgba(26, 54, 93, 0.85);
+            color: var(--lba-white);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            align-self: flex-start;
+            letter-spacing: 0.5px;
+        }
+
+        /* Age Appropriate Childhood Overlay Image Sphere */
+        .childhood-photo-sphere {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid var(--lba-white);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            align-self: flex-end;
+            background: var(--lba-white);
+        }
+
+        .childhood-photo-sphere img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 950px) {
+            .tour-workspace { grid-template-columns: 1fr; }
+            .tour-viewport { grid-template-columns: 1fr; }
+            .viewport-visuals { min-height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="tour-header">
+        <div>
+            <h1>Lightbridge Academy® of Plano</h1>
+            <p style="font-size: 0.85rem; opacity: 0.9;">Interactive Tour & Curriculum Game Sandbox</p>
+        </div>
+        <div class="score-box" id="scoreDisplay">Seedlings Points: 0</div>
+    </header>
+
+    <main class="tour-workspace">
+        
+        <section class="tour-controls-sidebar">
+            
+            <article class="card">
+                <h2>Tour Directory Map</h2>
+                <nav class="map-directory">
+                    <button class="map-room-btn active" id="btn-infant" onclick="loadTourStop('infant')">
+                        <span>👶 1. Infant Suites</span>
+                        <span class="room-status-badge" id="status-infant">Active</span>
+                    </button>
+                    <button class="map-room-btn" id="btn-purple" onclick="loadTourStop('purple')">
+                        <span>🐱 2. Purple Cats Room</span>
+                        <span class="room-status-badge" id="status-purple">Locked</span>
+                    </button>
+                    <button class="map-room-btn" id="btn-orange" onclick="loadTourStop('orange')">
+                        <span>🦒 3. Orange Giraffe Room</span>
+                        <span class="room-status-badge" id="status-orange">Locked</span>
+                    </button>
+                    <button class="map-room-btn" id="btn-bears" onclick="loadTourStop('bears')">
+                        <span>🐻 4. Brown Bears Room</span>
+                        <span class="room-status-badge" id="status-bears">Locked</span>
+                    </button>
+                </nav>
+            </article>
+
+            <article class="card">
+                <h2>Background Image Settings</h2>
+                <p style="font-size: 0.75rem; margin-bottom: 12px; color: #64748b;">Upload custom center layout photos to permanently customize the virtual tour background canvas views:</p>
+                
+                <div class="config-form-group">
+                    <label>Infant Room Background</label>
+                    <input type="file" class="file-input-style" onchange="processLocalUpload(event, 'infant')">
+                </div>
+                <div class="config-form-group">
+                    <label>Purple Cats Background</label>
+                    <input type="file" class="file-input-style" onchange="processLocalUpload(event, 'purple')">
+                </div>
+                <div class="config-form-group">
+                    <label>Orange Giraffe Background</label>
+                    <input type="file" class="file-input-style" onchange="processLocalUpload(event, 'orange')">
+                </div>
+                <div class="config-form-group">
+                    <label>Brown Bears Background</label>
+                    <input type="file" class="file-input-style" onchange="processLocalUpload(event, 'bears')">
+                </div>
+            </article>
+
+        </section>
+
+        <section class="tour-viewport" id="viewportWindow">
+            
+            <div class="viewport-interaction">
+                <div>
+                    <h2 class="classroom-title" id="roomTitle">Young & Mobile Infant Suites</h2>
+                    <span class="age-sub-rule" id="roomAge">6 Weeks to 18 Months</span>
+                    <p class="curriculum-narrative" id="roomDescription">
+                        Welcome into our specialized infant environments. Our curriculum path builds basic security, tracking, core balance through clean spaces, and structured tummy time loops.
+                    </p>
+                </div>
+
+                <div class="gameplay-box">
+                    <h4 id="challengeHeader">Seedlings Milestone Challenge</h4>
+                    <p id="challengePrompt">To balance physical development while maintaining maximum room cleanliness parameters, which floor milestone is prioritised?</p>
+                    
+                    <div class="choice-btn-stack" id="choiceContainer">
+                        </div>
+                </div>
+            </div>
+
+            <div class="viewport-visuals" id="canvasBackgroundView">
+                <div class="asset-tag" id="assetTagDisplay">Default Tour Environment Mockup Active</div>
+                
+                <div class="childhood-photo-sphere">
+                    <img id="childProfilePic" src="https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=300&q=80" alt="Age Aligned Child">
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // Central Tour Database mapping questions, answers, and asset properties
+        const tourDatabase = {
+            infant: {
+                title: "Young & Mobile Infant Suites",
+                age: "6 Weeks to 18 Months",
+                desc: "Welcome into our pristine, nurturing environment. Our Seedlings layout is customized around individual feeding schedules and daily sensory explorations.",
+                prompt: "YLO is alert after a nap. To build baseline motor capacity while highlighting our clean safe rooms, which activity is correct?",
+                choices: [
+                    { text: "Encourage tummy-time on our sanitized sensory play mats.", correct: true, points: 15 },
+                    { text: "Place the infant into a stationary swing seat.", correct: false, points: 0 }
+                ],
+                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1576489922094-27859fe22315?auto=format&fit=crop&w=600&q=80')",
+                childImg: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=300&q=80"
+            },
+            purple: {
+                title: "The Purple Cats Room",
+                age: "18 to 24 Months",
+                desc: "Toddlers in our Purple Cats space are working on advanced emotional vocabulary expression and collaborative peer sharing interactions.",
+                prompt: "During our Seedlings Language circle presentation, the instructor mimics a sound. How do we reinforce vocabulary?",
+                choices: [
+                    { text: "Have children trace words in worksheets.", correct: false, points: 0 },
+                    { text: "Have them point to matching sound cards like 'Meow' for Cat.", correct: true, points: 15 }
+                ],
+                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1564429135360-643093c4f7be?auto=format&fit=crop&w=600&q=80')",
+                childImg: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=300&q=80"
+            },
+            orange: {
+                title: "The Orange Giraffe Room",
+                age: "2 to 3 Years",
+                desc: "Two-year-olds are natural scientists exploring cognitive sorting puzzles, sequence structures, and self-help independence routines like toilet training.",
+                prompt: "How does our classroom sequence encourage independence during toilet training and daily snack windows?",
+                choices: [
+                    { text: "Establishing a predictable, visual handwashing and potty routine.", correct: true, points: 15 },
+                    { text: "Changing activities randomly to surprise the toddlers.", correct: false, points: 0 }
+                ],
+                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=600&q=80')",
+                childImg: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=300&q=80"
+            },
+            bears: {
+                title: "The Brown Bears Room",
+                age: "4 to 5 Years",
+                desc: "Our signature Pre-K preparation engine focusing heavily on comprehensive phonics, mathematical reasoning, and full Kindergarten readiness optimization.",
+                prompt: "To test final Kindergarten Readiness milestones, what metric is monitored closely via the Lightbridge Journey app?",
+                choices: [
+                    { text: "Rote memorization of flashcard math lists.", correct: false, points: 0 },
+                    { text: "90% mastery of Seedlings academic, emotional, and social development indicators.", correct: true, points: 20 }
+                ],
+                defaultBg: "linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80')",
+                childImg: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=300&q=80"
+            }
+        };
+
+        // Runtime Scoring and Progress States Tracker Variables
+        let currentScore = 0;
+        let activeRoomKey = "infant";
+        const customUploadedBackgrounds = { infant: null, purple: null, orange: null, bears: null };
+        const unlockedRooms = { infant: true, purple: false, orange: false, bears: false };
+
+        // Main Interface Render Controller
+        function loadTourStop(roomKey) {
+            // Check map navigation locking configuration
+            if (!unlockedRooms[roomKey]) {
+                alert("🔒 This room is locked! Please solve the current classroom challenge first to progress along the center map.");
+                return;
+            }
+
+            activeRoomKey = roomKey;
+            const data = tourDatabase[roomKey];
+
+            // Update Text Node strings
+            document.getElementById('roomTitle').innerText = data.title;
+            document.getElementById('roomAge').innerText = data.age;
+            document.getElementById('roomDescription').innerText = data.desc;
+            document.getElementById('challengePrompt').innerText = data.prompt;
+            document.getElementById('childProfilePic').src = data.childImg;
+
+            // Manage active navigation menu state classes
+            document.querySelectorAll('.map-room-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${roomKey}`).classList.add('active');
+
+            // Render background layers
+            renderBackgroundLayer(roomKey);
+
+            // Populate Multiple Choice Action Buttons
+            const choiceBox = document.getElementById('choiceContainer');
+            choiceBox.innerHTML = "";
+            
+            data.choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.className = "choice-option";
+                button.innerText = choice.text;
+                button.onclick = () => evaluationSelection(choice, button, roomKey);
+                choiceBox.appendChild(button);
+            });
+        }
+
+        // Evaluate choices and unlock subsequent tour map stops
+        function evaluationSelection(choice, clickedButton, roomKey) {
+            if (choice.correct) {
+                clickedButton.classList.add('correct-choice');
+                currentScore += choice.points;
+                document.getElementById('scoreDisplay').innerText = `Seedlings Points: ${currentScore}`;
+                
+                // Set current map index status to completed
+                document.getElementById(`btn-${roomKey}`).classList.add('completed');
+                document.getElementById(`status-${roomKey}`).innerText = "Completed ✓";
+
+                // Unlock the subsequent step in sequence logic
+                unlockNextInSequence(roomKey);
+            } else {
+                alert("❌ Let's try again! Review the Lightbridge curriculum strategy and pick the option that maximizes physical interaction and cleanliness safeguards.");
+            }
+        }
+
+        // Flow roadmap logical processor unlocking the sequential door
+        function unlockNextInSequence(currentKey) {
+            let nextKey = null;
+            if (currentKey === 'infant') nextKey = 'purple';
+            else if (currentKey === 'purple') nextKey = 'orange';
+            else if (currentKey === 'orange') nextKey = 'bears';
+
+            if (nextKey) {
+                unlockedRooms[nextKey] = true;
+                const statusBadge = document.getElementById(`status-${nextKey}`);
+                if (statusBadge.innerText === "Locked") {
+                    statusBadge.innerText = "Available";
+                    statusBadge.style.background = "var(--lba-yellow)";
+                    statusBadge.style.color = "#1e293b";
+                }
+            } else {
+                // Trigger final completion sequence banner check
+                alert("🎉 Kindergarten Graduation Achieved! You have successfully completed the Lightbridge Academy of Plano Interactive Tour! Total Score: " + currentScore + " Seedlings Points. Contact our team to book your physical in-person walkthrough!");
+            }
+        }
+
+        // Live File Upload base64 Conversion Hook Reader
+        function processLocalUpload(event, roomKey) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                customUploadedBackgrounds[roomKey] = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${e.target.result}')`;
+                
+                // If the user currently occupies the background space being adjusted, immediately refresh view
+                if (activeRoomKey === roomKey) {
+                    renderBackgroundLayer(roomKey);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Render Canvas background strategy controller
+        function renderBackgroundLayer(roomKey) {
+            const displayCanvas = document.getElementById('canvasBackgroundView');
+            const tagDisplay = document.getElementById('assetTagDisplay');
+
+            if (customUploadedBackgrounds[roomKey]) {
+                displayCanvas.style.backgroundImage = customUploadedBackgrounds[roomKey];
+                tagDisplay.innerText = "Custom Configured Local Tour Background Active";
+                tagDisplay.style.background = "var(--lba-green)";
+            } else {
+                displayCanvas.style.backgroundImage = tourDatabase[roomKey].defaultBg;
+                tagDisplay.innerText = "Default Tour Environment Mockup Active";
+                tagDisplay.style.background = "var(--lba-blue)";
+            }
+        }
+
+        // Initialize runtime application defaults setup
+        window.onload = function() {
+            loadTourStop('infant');
+        };
+    </script>
+</body>
+</html>
